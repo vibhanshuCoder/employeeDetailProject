@@ -1,43 +1,62 @@
 package com.empPackage;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.List;
-public class FullEmpClass {
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.*;
 
-    public static List<String> detailList = new ArrayList<>();
+public class FullEmpClass {
+    private static int ID = 0;
+    public static ArrayList<String> empDetail = new ArrayList<>();
+    public static HashMap<Integer, ArrayList<String>> empMap= new HashMap<>();
     private static String name, address, age, salary;
+    public static BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
     public static Scanner sc = new Scanner(System.in);
-    public static void create()
+
+    public static void create() throws IOException
     {
+
         System.out.println("Enter Detail :");
         System.out.println("Enter name :");
-        name = sc.nextLine();
-        detailList.add(name);
+        name = br.readLine();
+        empDetail.add(name);
         System.out.println("Enter Age :");
-        age = sc.nextLine();
-        detailList.add(age);
+        age = br.readLine();
+        empDetail.add(age);
         System.out.println("Enter Salary:");
-        salary = sc.nextLine();
-        detailList.add(salary);
+        salary = br.readLine();
+        empDetail.add(salary);
         System.out.println("Enter Address :");
-        address = sc.nextLine();
-        detailList.add(address);
-        System.out.println("Record added successfully \n\n");
-        home();
-
-    }
-    public static void view()
-    {try {
-        for (int i = 0; i <= detailList.size(); i++) {
-            System.out.println(detailList.get(i));
+        address = br.readLine();
+        empDetail.add(address);
+//        while(empDetail.size() !=0) {
+            empMap.put(ID, empDetail);
+            System.out.println("Record added successfully \n");
+            home();
         }
-    }catch (Exception e)
-    {
-        home();
+
+    public static void view() throws IOException {
+      try {
+          for(Map.Entry ery: empMap.entrySet()) {
+              System.out.println("ID :" + ery.getKey() + "\nDetails :" + ery.getValue());
+          }
+//          -----------------------------------------------------------------            //
+//          if (detailList.size() != 0) {
+//              for (int i = 0; i <= detailList.size(); i++) {
+//                  System.out.println(detailList.get(i));
+//              }
+//          } else {
+//              System.out.println("NO RECORD TO SHOW");
+//              home();
+//          }
+      }catch (Exception e)
+      {
+          home();
+      }
+      home();
     }
 
-    }
-    public static void update() {
+    public static void update() throws IOException
+    {
         System.out.println("""
                 Enter choice which data you want to update
                 Name :- 0
@@ -46,56 +65,54 @@ public class FullEmpClass {
                 Address :-3
                 Exit to home :- 4
                 """);
-                int se = sc.nextInt();
-        try {
-            switch (se) {
+        int se = sc.nextInt();
+        switch (se)
+        {
                 case 0: {
                     System.out.println("Enter Name:");
-                    name = sc.next();
-                    detailList.set(0,name);
-                    home();
+                    name = br.readLine();
+                    empDetail.set(0,name);
+                    update();
                 }
                 case 1: {
                     System.out.println("Enter Age:");
-                    age = sc.nextLine();
-                    detailList.set(1,age);
-                    home();
+                    age = br.readLine();
+                    empDetail.set(1,age);
+                    update();
                 }
                 case 2: {
                     System.out.println("Enter Salary:");
-                    salary=sc.nextLine();
-                    detailList.set(2,salary);
-                    home();
+                    salary=br.readLine();
+                    empDetail.set(2,salary);
+                    update();
                 }
                 case 3: {
                     System.out.println("Enter Addres:");
-                    address = sc.nextLine();
-                    detailList.set(3,address);
-                    home();
+                    address = br.readLine();
+                    empDetail.set(3,address);
+                    update();
+
                 }
                 case 4: {
                     home();
                 }
                 default: {
                     System.out.println("Enter a valid input");
+                    update();
                 }
             }
-        } catch (Exception e){
-            System.out.println("Enter valid input");
-            update();
         }
 
-    }
-        public static void delete ()
-
-    {
-           detailList.clear();
+        public static void delete () throws IOException
+        {
+           empDetail.clear();
            System.out.println("record deleted successfully");
            home();
+        }
 
-    }
-    public static void home()
-    {
+        public static void home() throws IOException
+        {
+
         System.out.println("""
                 -----------------Enter Your Choice-------------------
                 create - 1
@@ -103,18 +120,26 @@ public class FullEmpClass {
                 update - 3
                 delete - 4
                 Exit - 5""");
-        Scanner cSc = new Scanner(System.in);
-        int i = cSc.nextInt();
-        switch (i) {
-            case 1 -> create();
-            case 2 -> view();
-            case 3 -> update();
-            case 4 -> delete();
-            case 5 -> System.out.println("Thanks for using...see you next time");
-            default -> System.out.println("Invalid Input");
+        try {
+            Scanner cSc = new Scanner(System.in);
+            int i = cSc.nextInt();
+            switch (i) {
+                case 1 -> {
+                    ID++;
+                    create();}
+                case 2 -> view();
+                case 3 -> update();
+                case 4 -> delete();
+                case 5 -> System.out.println("Thanks for using...see you next time");
+                default -> System.out.println("Invalid Input");
+            }
+        }catch (Exception e)
+        {
+            System.out.println("Invalid input....Please enter a valid input");
+            home();
         }
     }
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException{
         FullEmpClass emp = new FullEmpClass();
         emp.home();
     }
