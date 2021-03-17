@@ -13,8 +13,9 @@ public class EmpDatabase {
         return name;
     }
 
-    public void setName(String name) {
+    public EmpDatabase setName(String name) {
         this.name = name;
+        return null;
     }
 
     public String getAge() {

@@ -1,9 +1,9 @@
 package com.empPackage;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import com.empPackage.*;
 
 public class EmpServices {
     public Map<Integer,EmpDatabase> empMap = new HashMap<>();
@@ -52,22 +52,21 @@ public class EmpServices {
                for(Map.Entry ery : empMap.entrySet()) {
                     System.out.println("ID : " + ery.getKey() + ery.getValue().toString());
                 }
-                    viewEmp();
-                }
+                viewEmp();
+            }
 
-            case 1:
-            {
+            case 1: {
                 System.out.println("Enter ID : ");
                 int keyval = scanner.nextInt();
                 EmpDatabase val = empMap.get(keyval);
-                System.out.println(val);
+                Out.print("ID : " + keyval + "" + val);
                 viewEmp();
             }
-                    break;
-            case 2:{homePage();}
+            case 2: {
+                homePage();
+            }
 
-            default:
-            {
+            default: {
                 Out.print("Please enter valid input");
                 break;
             }
@@ -77,54 +76,77 @@ public class EmpServices {
 public void updateEmp() throws IOException
 {
     System.out.println("""
-                Enter choice which data you want to update
-                Name :- 0
-                Age :- 1
-                Salary :- 2
-                ContactNo. :-3
-                Exit to home :- 4
-                """);
+            Enter choice which data you want to update
+            update all detail - 0
+            Name :- 1
+            Age :- 2
+            Salary :- 3
+            ContactNo. :-4
+            Exit to home :- 5
+            """);
     int se = scanner.nextInt();
     switch (se)
     {
-        case 0:
-            {
+        case 0: {
             Out.println("Enter ID: ");
             int kvl = scanner.nextInt();
             Out.println("Enter Name:");
             String name = br.readLine();
             EmpDatabase.setName(name);
-            empMap.put(kvl,EmpDatabase);
+            Out.println("Enter Age:");
+            String age = br.readLine();
+            EmpDatabase.setAge(age);
+            Out.println("Enter Salary:");
+            String salary = br.readLine();
+            EmpDatabase.setSalary(salary);
+            Out.println("Enter Contact number:");
+            String phnnb = br.readLine();
+            EmpDatabase.setPhnNb(phnnb);
+            empMap.put(kvl, EmpDatabase);
             updateEmp();
-            }
-        case 1:
-            {
+        }
+        case 1: {
+            Out.println("Enter ID: ");
+            int kvl = scanner.nextInt();
+            Out.println("Enter Name:");
+            String name = br.readLine();
+            EmpDatabase val = empMap.get(kvl);
+            val.setName(name);
+            empMap.put(kvl, val);
+            updateEmp();
+        }
+
+        case 2: {
             Out.println("Enter ID: ");
             int kvl = scanner.nextInt();
             Out.println("Enter Age:");
             String age = br.readLine();
-          /*  empMap.put(kvl,empDatabase.setAge(age));*/
+            EmpDatabase val = empMap.get(kvl);
+            val.setAge(age);
+            empMap.put(kvl, val);
             updateEmp();
-            }
-        case 2:
-            {
+        }
+        case 3: {
             Out.println("Enter ID: ");
             int kvl = scanner.nextInt();
             Out.println("Enter Salary:");
-            String salary=br.readLine();
-//            empMap.put(kvl,empDatabase.setSalary(salary));
+            String salary = br.readLine();
+            EmpDatabase val = empMap.get(kvl);
+            val.setSalary(salary);
+            empMap.put(kvl, val);
             updateEmp();
-            }
-        case 3:
-            {
+        }
+        case 4: {
             Out.println("Enter ID: ");
             int kvl = scanner.nextInt();
             Out.println("Enter Contact number:");
-            String phnnb= br.readLine();
-//            empMap.put(kvl,empDatabase.setPhnNb(phnnb));
+            String phnnb = br.readLine();
+            EmpDatabase val = empMap.get(kvl);
+            val.setPhnNb(phnnb);
+            empMap.put(kvl, EmpDatabase);
             updateEmp();
-            }
-        case 4:
+        }
+        case 5:
             {
             homePage();
             }
@@ -137,7 +159,29 @@ public void updateEmp() throws IOException
 }
 //    ---------------DELETE-METHOD--------
     public void deleteEmp() {
-        empMap.clear();
+        Out.print("Enter your choice : " +
+                "\nDelete all - 1" +
+                "\nDelete by ID - 2");
+        int dl = scanner.nextInt();
+        switch (dl) {
+            case 1: {
+                empMap.clear();
+                homePage();
+            }
+            case 2: {
+                Out.print("Enter ID : ");
+                int dlId = scanner.nextInt();
+                empMap.remove(dlId);
+                deleteEmp();
+            }
+            case 3: {
+                homePage();
+            }
+            default: {
+                Out.print("Enter valid input");
+            }
+        }
+
     }
 //-----------------HOME-METHOD----------
     public void homePage()
@@ -169,5 +213,4 @@ public void updateEmp() throws IOException
             homePage();
         }
     }
-
 }
