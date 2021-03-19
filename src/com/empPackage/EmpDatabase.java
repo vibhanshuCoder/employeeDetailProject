@@ -2,7 +2,7 @@ package com.empPackage;
 public class EmpDatabase {
 
     private String name;
-    private String age;
+    private int age;
     private String phnNb;
     private String salary;
 
@@ -18,11 +18,11 @@ public class EmpDatabase {
         return null;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public EmpDatabase setAge(String age) {
+    public EmpDatabase setAge(int age) {
         this.age = age;
         return null;
     }
