@@ -6,7 +6,14 @@ public class EmpDatabase {
     private String phnNb;
     private String salary;
 
-    EmpDatabase(){
+    public EmpDatabase(String name, int age, String phnNb, String salary) {
+        this.name = name;
+        this.age = age;
+        this.phnNb = phnNb;
+        this.salary = salary;
+    }
+
+    EmpDatabase() {
     }
 
     public String getName() {
@@ -54,4 +61,5 @@ public class EmpDatabase {
                 ", salary='" + salary + '\'' +
                 '}';
     }
+
 }
